@@ -213,18 +213,18 @@ const Page = () => {
                                 <td className="border-b cursor-pointer border-gray-200 bg-white px-5 py-5 text-sm">
                                   <Link href={`order/${order.slug}`}>
                                     <p className="max-w-[200px] truncate text-gray-900 transition-colors duration-150 hover:text-blue-400">
-                                      {order.orderItems?.[0].product.name}
+                                      {order.orderItems?.[0]?.product?.name}
                                     </p>
                                   </Link>
                                 </td>
                                 <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                                   <p className="whitespace-no-wrap text-gray-900">
-                                    {order.orderItems.length}
+                                    {order?.orderItems.length}
                                   </p>
                                 </td>
                                 <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                                   <p className="whitespace-no-wrap text-gray-900">
-                                    {new Date(order.updatedAt).toLocaleString(
+                                    {new Date(order?.updatedAt).toLocaleString(
                                       "en-US",
                                       {
                                         day: "numeric",
@@ -240,17 +240,17 @@ const Page = () => {
                                   <div className="flex items-center justify-start gap-3">
                                     <span
                                       className={`w-2 h-2 rounded-full ${
-                                        order.orderStatus === "Processing"
+                                        order?.orderStatus === "Processing"
                                           ? "bg-yellow-300"
-                                          : order.orderStatus === "Failed"
+                                          : order?.orderStatus === "Failed"
                                           ? "bg-red-500"
-                                          : order.orderStatus === "Delivered"
+                                          : order?.orderStatus === "Delivered"
                                           ? "bg-green-500"
                                           : "bg-blue-500"
                                       } drop-shadow`}
                                     ></span>
                                     <span className="font-semibold">
-                                      {order.orderStatus}
+                                      {order?.orderStatus}
                                     </span>
                                   </div>
                                 </td>
