@@ -1,15 +1,16 @@
 "use client"
-import axios from "axios";
 import { Hero, ProductCard, Wrapper } from "./components";
 import { API_URL } from "./utils/urls";
 import { use, useState } from "react";
 
-
 const getAllProducts = async () => {
   try {
-    const { data } = await axios.get(`${API_URL}/api/products/`, {
-      withCredentials: true,
-    });
+    const res = await fetch(`${API_URL}/api/products/`, {
+      method: "GET",
+      credentials: "include",
+    })
+
+    const data = await res.json()
 
     return data;
   } catch (error) {
@@ -23,9 +24,13 @@ const getAllProducts = async () => {
 
 const userProfile = async () => {
   try {
-    const { data } = await axios.get(`${API_URL}/api/users/profile`, {
-      withCredentials: true,
-    });
+    const res = await fetch(`${API_URL}/api/users/profile`, {
+      method: "GET",
+      credentials: "include",
+    })
+
+    const data = await res.json()
+
     return data;
   } catch (error) {
     if (error.response && error.response.data.message) {
@@ -34,6 +39,7 @@ const userProfile = async () => {
     return new Error(error.message);
   }
 };
+
 
 export default function Home() {
   const [products, setProducts] = useState(use(getAllProducts()));
