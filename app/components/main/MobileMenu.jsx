@@ -1,11 +1,14 @@
+"use client"
+import useLoginModel from "@/app/hooks/useLoginModal";
+import { logoutUser } from "@/app/services/user";
 import { logout } from "@/app/store/actions/user";
 import { useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import React from "react";
+import React, { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { BsChevronDown } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const subMenuData = [
   { id: 1, name: "Jordan", doc_count: 11 },
@@ -18,6 +21,8 @@ const MobileMenu = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
   const currentPath = usePathname();
   const userState = useSelector((state) => state.user);
   const router = useRouter();
+  const dispatch = useDispatch()
+  const loginModel = useLoginModel()
 
   const { refetch } = useQuery({
     refetchOnWindowFocus: false,
@@ -51,9 +56,9 @@ const MobileMenu = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
             {currentPath === "/" ? "Profile" : "Home"}
           </Link>
         ) : (
-          <Link href="/login" onClick={() => setMobileMenu(false)}>
+          <div onClick={loginModel.onOpen}>
             Login
-          </Link>
+          </div>
         )}
       </div>
       <div
