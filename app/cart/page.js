@@ -37,10 +37,6 @@ const handlePayment = async (subTotal) => {
     body: JSON.stringify({ amount: subTotal }),
   });
   const data = await res.json();
-  // Cookies.set("orderId", data.id, { expires: 1 });
-  // window.location.href = data.url;
-
-  // console.log(data.url);
   return data;
 };
 
@@ -129,6 +125,10 @@ const Page = () => {
               >
                 {isPaymentLoading ? (
                   <Image
+                    style={{
+                      width: "2.5rem",
+                      height: "2.5rem",
+                    }}
                     width={100}
                     height={100}
                     src="/assets/double-ring-loader.svg"
@@ -144,9 +144,13 @@ const Page = () => {
           </div>
           {/* cart ended */}
         </>
-      ) : isLoading ? (
+      ) : !isLoading ? (
         <div className="w-full h-screen md:h-[60vh] flex flex-col items-center justify-center gap-2">
           <Image
+            style={{
+              width: "4rem",
+              height: "4rem",
+            }}
             width={200}
             height={200}
             src="assets/loader2.svg"
