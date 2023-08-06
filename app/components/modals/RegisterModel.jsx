@@ -1,13 +1,11 @@
 "use client";
 
-import { FcGoogle } from "react-icons/fc";
 import { useCallback } from "react";
 import { toast } from "react-hot-toast";
 import { useForm } from "react-hook-form";
 import Modal from "./Modal";
 import Heading from "../inputs/Heading";
 import Input from "../inputs/Input";
-import Button from "../inputs/Button";
 import useRegisterModel from "../../hooks/useRegisterModal";
 import useLoginModel from "../../hooks/useLoginModal";
 import { registerUser } from "../../services/user";
@@ -110,6 +108,7 @@ const RegisterModal = () => {
   return (
     <Modal
       disabled={isLoading}
+      loadingMessage={"Registering User"}
       isOpen={registerModal.isOpen}
       title="Sign up"
       actionLabel="Continue"
