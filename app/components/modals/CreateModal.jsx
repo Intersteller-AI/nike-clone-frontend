@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import Modal from "./Modal";
@@ -18,6 +17,9 @@ import Images from "../admin/Images";
 import Thumbnail from "../admin/Thumbnail";
 import NameSubtitle from "../admin/NameSubtitle";
 import { toast } from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import { useDispatch } from "react-redux";
+import { userActions } from "@/app/store/reducers/user";
 
 const STEPS = {
   NAME_SUBTITLE: 0,
@@ -155,9 +157,11 @@ const CreateModel = () => {
     setStep((value) => value + 1);
   };
 
+  const dispatch = useDispatch()
   const { mutate: mutateSubmit, isLoading: isSubmitting } = useMutation({
     mutationFn: (formData) => createProduct({ formData: formData }),
     onSuccess: (data) => {
+      dispatch(userActions.setUserInfo(data?.user))
       toast.success(data?.message);
       createModal.onClose();
       reset({
@@ -186,7 +190,6 @@ const CreateModel = () => {
     }
     mutateSubmit(data);
   };
-
 
   const actionLabel = useMemo(() => {
     if (step === STEPS.CATEGORIES) {
