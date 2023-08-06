@@ -113,10 +113,15 @@ export const getProduct = async ({ slug }) => {
 
 export const handleWishlist = async ({ slug }) => {
   try {
-    const { data } = await axios.get(
-      `${API_URL}/api/products/wishlist/${slug}`,
-      { withCredentials: true }
-    );
+    const res = await fetch(`${API_URL}/api/products/wishlist/${slug}`, {
+      method: "GET",
+      credentials: "include",
+      next: {
+        revalidate: "60",
+      },
+    });
+
+    const data = await res.json();
 
     return data;
   } catch (error) {
@@ -130,9 +135,14 @@ export const handleWishlist = async ({ slug }) => {
 
 export const getWishlist = async () => {
   try {
-    const { data } = await axios.get(`${API_URL}/api/products/wishlist`, {
-      withCredentials: true,
+    const res = await fetch(`${API_URL}/api/products/wishlist`, {
+      method: "GET",
+      credentials: "include",
+      next: {
+        revalidate: "60",
+      },
     });
+    const data = await res.json();
 
     return data;
   } catch (error) {
@@ -146,16 +156,29 @@ export const getWishlist = async () => {
 
 export const createReview = async ({ formData }) => {
   try {
-    const { data } = await axios.post(
-      `${API_URL}/api/products/reviews/`,
-      formData,
-      {
-        withCredentials: true,
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    // const { data } = await axios.post(
+    //   `${API_URL}/api/products/reviews/`,
+    //   formData,
+    //   {
+    //     withCredentials: true,
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //   }
+    // );
+    const res = await fetch(`${API_URL}/api/products/reviews`, {
+      method: "POST",
+      credentials: "include",
+      body: formData,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      next: {
+        revalidate: "5",
+      },
+    });
+
+    const data = await res.json();
 
     return data;
   } catch (error) {
@@ -169,13 +192,26 @@ export const createReview = async ({ formData }) => {
 
 export const deleteReview = async ({ formData }) => {
   try {
-    const { data } = await axios.delete(`${API_URL}/api/products/reviews/`, {
-      data: formData,
-      withCredentials: true,
+    // const { data } = await axios.delete(`${API_URL}/api/products/reviews/`, {
+    //   data: formData,
+    //   withCredentials: true,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    // });
+    const res = await fetch(`${API_URL}/api/products/reviews`, {
+      method: "DELETE",
+      credentials: "include",
+      body: formData,
       headers: {
         "Content-Type": "application/json",
       },
+      next: {
+        revalidate: "5",
+      },
     });
+
+    const data = await res.json();
 
     return data;
   } catch (error) {
@@ -245,4 +281,3 @@ export const removeFromCart = async ({ formData }) => {
     return new Error(error.message);
   }
 };
-
