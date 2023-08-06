@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import Modal from "./Modal";
@@ -19,9 +18,9 @@ import NameSubtitle from "../admin/NameSubtitle";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import useUpdateProductModal from "@/app/hooks/useUpdateProductModal";
-import { productActions } from "@/app/store/reducers/product";
 import { clearProduct } from "@/app/store/actions/product";
 import { useRouter } from "next/navigation";
+import { userActions } from "@/app/store/reducers/user";
 
 const STEPS = {
   NAME_SUBTITLE: 0,
@@ -182,12 +181,11 @@ const UpdateProduct = () => {
     setStep((value) => value + 1);
   };
 
-  const router = useRouter()
-
   const { mutate: mutateUpdate, isLoading: isUpdating } = useMutation({
     mutationFn: (formData) =>
       updateProduct({ formData: formData, slug: productInfo?.slug }),
     onSuccess: (data) => {
+      dispatch(userActions.setUserInfo(data?.user))
       toast.success(data?.message);
       updateModal.onClose();
       reset({
@@ -201,7 +199,6 @@ const UpdateProduct = () => {
         thumbnail: "",
         categories: [],
       });
-      router.refresh()
       setStep(STEPS.NAME_SUBTITLE);
       setSelectedCategories([]);
       dispatch(clearProduct);
