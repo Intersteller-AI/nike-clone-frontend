@@ -52,7 +52,6 @@ const ConfModal = ({
 const Dashboard = () => {
   const createProduct = useCreateProductModal();
   const updateProduct = useUpdateProductModal();
-  const router = useRouter();
   const dispatch = useDispatch();
 
   const onCreate = useCallback(() => {
@@ -183,6 +182,12 @@ const Dashboard = () => {
                             src="/assets/double-ring-loader.svg"
                             alt="loader"
                           />
+                        </td>
+                      </tr>
+                    ) : adminProducts?.length === 0 ? (
+                      <tr className="absolute top-24 left-[50%] translate-x-[-50%]">
+                        <td className="w-full text-center text-lg font-semibold">
+                          {"You Haven't created any product yet. 😝"}
                         </td>
                       </tr>
                     ) : (
