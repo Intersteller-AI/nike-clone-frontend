@@ -156,29 +156,29 @@ export const getWishlist = async () => {
 
 export const createReview = async ({ formData }) => {
   try {
-    // const { data } = await axios.post(
-    //   `${API_URL}/api/products/reviews/`,
-    //   formData,
-    //   {
-    //     withCredentials: true,
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //   }
-    // );
-    const res = await fetch(`${API_URL}/api/products/reviews`, {
-      method: "POST",
-      credentials: "include",
-      body: formData,
-      headers: {
-        "Content-Type": "application/json",
-      },
-      next: {
-        revalidate: "5",
-      },
-    });
+    const { data } = await axios.post(
+      `${API_URL}/api/products/reviews/`,
+      formData,
+      {
+        withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
+    // const res = await fetch(`${API_URL}/api/products/reviews`, {
+    //   method: "POST",
+    //   credentials: "include",
+    //   body: formData,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   next: {
+    //     revalidate: "5",
+    //   },
+    // });
 
-    const data = await res.json();
+    // const data = await res.json();
 
     return data;
   } catch (error) {
@@ -192,26 +192,26 @@ export const createReview = async ({ formData }) => {
 
 export const deleteReview = async ({ formData }) => {
   try {
-    // const { data } = await axios.delete(`${API_URL}/api/products/reviews/`, {
-    //   data: formData,
-    //   withCredentials: true,
-    //   headers: {
-    //     "Content-Type": "application/json",
-    //   },
-    // });
-    const res = await fetch(`${API_URL}/api/products/reviews`, {
-      method: "DELETE",
-      credentials: "include",
-      body: formData,
+    const { data } = await axios.delete(`${API_URL}/api/products/reviews/`, {
+      data: formData,
+      withCredentials: true,
       headers: {
         "Content-Type": "application/json",
       },
-      next: {
-        revalidate: "5",
-      },
     });
+    // const res = await fetch(`${API_URL}/api/products/reviews`, {
+    //   method: "DELETE",
+    //   credentials: "include",
+    //   body: formData,
+    //   headers: {
+    //     "Content-Type": "application/json",
+    //   },
+    //   next: {
+    //     revalidate: "5",
+    //   },
+    // });
 
-    const data = await res.json();
+    // const data = await res.json();
 
     return data;
   } catch (error) {
