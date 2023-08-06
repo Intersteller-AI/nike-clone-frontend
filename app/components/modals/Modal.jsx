@@ -60,7 +60,7 @@ const Modal = ({
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70">
         <div className="relative w-full md:w-3/4 xl:w-2/4 my-6 mx-auto h-full lg:h-auto md:h-auto">
           {disabled && (
-            <div className="absolute top-0 left-0 z-[999999] w-full h-screen flex flex-col items-center justify-center bg-white/60">
+            <div className="absolute top-0 left-0 z-[999999] w-full h-full flex flex-col items-center justify-center bg-white/60">
               <Image
                 width={100}
                 height={100}
