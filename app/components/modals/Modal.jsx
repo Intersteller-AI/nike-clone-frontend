@@ -3,6 +3,7 @@
 import { useCallback, useEffect, useState } from "react";
 import { IoMdClose } from "react-icons/io";
 import Button from "../inputs/Button";
+import Image from "next/image";
 
 const Modal = ({
   isOpen,
@@ -15,6 +16,7 @@ const Modal = ({
   disabled,
   secondaryAction,
   secondaryActionLabel,
+  loadingMessage,
 }) => {
   const [showModal, setShowModal] = useState(isOpen);
 
@@ -57,6 +59,19 @@ const Modal = ({
     <>
       <div className="justify-center items-center flex overflow-x-hidden overflow-y-hidden fixed inset-0 z-50 outline-none focus:outline-none bg-neutral-800/70">
         <div className="relative w-full md:w-3/4 xl:w-2/4 my-6 mx-auto h-full lg:h-auto md:h-auto">
+          {disabled && (
+            <div className="absolute top-0 left-0 z-[999999] w-full h-screen flex flex-col items-center justify-center bg-white/60">
+              <Image
+                width={100}
+                height={100}
+                src="/assets/rhythm-loader.svg"
+                alt="loader"
+              />
+              <h1 className="animate-pulse mt-4 text-lg font-semibold">
+                {loadingMessage}
+              </h1>
+            </div>
+          )}
           {/*content*/}
           <div
             className={`translate duration-300 h-full ${
