@@ -10,10 +10,10 @@ import { getAdminData } from "@/app/services/user";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import { deleteProduct, getProduct } from "@/app/services/product";
 import { toast } from "react-hot-toast";
-import { useRouter } from "next/navigation";
 import useUpdateProductModal from "@/app/hooks/useUpdateProductModal";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { productActions } from "@/app/store/reducers/product";
+import Link from "next/link";
 
 const ConfModal = ({
   cancelConf,
@@ -52,16 +52,25 @@ const ConfModal = ({
 const Dashboard = () => {
   const createProduct = useCreateProductModal();
   const updateProduct = useUpdateProductModal();
+  const userState = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const onCreate = useCallback(() => {
     createProduct.onOpen();
   }, [createProduct]);
 
-  const { data: adminData, isLoading, refetch: refetchProducts } = useQuery({
+  const {
+    data: adminData,
+    isLoading,
+    refetch: refetchProducts,
+  } = useQuery({
     queryFn: () => getAdminData(),
     queryKey: ["users"],
   });
+
+  useEffect(() => {
+    refetchProducts();
+  }, [userState, refetchProducts]);
 
   const [cancelConf, setCancelConf] = useState(null);
   const [adminProducts, setAdminProducts] = useState([]);
@@ -70,10 +79,11 @@ const Dashboard = () => {
     setAdminProducts(adminData?.adminProducts);
   }, [adminData]);
 
-  const { mutate: deleteProductMutate, isLoading: isDeletingProduct } = useMutation({
+  const { mutate: deleteProductMutate, isLoading: isDeletingProduct } =
+    useMutation({
       mutationFn: (slug) => deleteProduct({ slug: slug }),
       onSuccess: (message) => {
-        refetchProducts()
+        refetchProducts();
         toast.success(message.message);
         setCancelConf(null);
       },
@@ -90,14 +100,12 @@ const Dashboard = () => {
     enabled: false,
     queryFn: () => getProduct({ slug: updateSlug }),
     onSuccess: (data) => {
-      if(data){
-        dispatch(
-          productActions.setProductInfo(data)
-        );
-        updateProduct.onOpen()
+      if (data) {
+        dispatch(productActions.setProductInfo(data));
+        updateProduct.onOpen();
       }
-      if(updateSlug){
-        setupdateSlug(null)
+      if (updateSlug) {
+        setupdateSlug(null);
       }
     },
     onError: (error) => {
@@ -109,7 +117,7 @@ const Dashboard = () => {
   const handleUpdateProduct = useCallback((val) => {
     setupdateSlug(val);
   }, []);
-  
+
   useEffect(() => {
     if (updateSlug) {
       refetch();
@@ -208,9 +216,11 @@ const Dashboard = () => {
                             </div>
                           </td>
                           <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
-                            <p className="max-w-[200px] truncate text-gray-900 transition-colors duration-150 hover:text-blue-400">
-                              {product?.name}
-                            </p>
+                            <Link href={`/product/${product?.slug}`}>
+                              <p className="max-w-[200px] truncate text-gray-900 transition-colors duration-150 hover:text-blue-400">
+                                {product?.name}
+                              </p>
+                            </Link>
                           </td>
                           <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                             <p className="whitespace-no-wrap text-gray-900">
