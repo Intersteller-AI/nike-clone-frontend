@@ -3,6 +3,11 @@ const nextConfig = {
   images: {
     remotePatterns: [
       {
+        protocol: "https",
+        hostname: "nike-backend-ci0g.onrender.com",
+        pathname: "/api/**",
+      },
+      {
         protocol: "http",
         hostname: "localhost",
         port: "8000",
