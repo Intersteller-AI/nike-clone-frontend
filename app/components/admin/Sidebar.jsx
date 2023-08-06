@@ -189,7 +189,7 @@ const Sidebar = () => {
                   </Link>
                 ) : (
                   <button
-                    className={`hover:bg-gray-700 flex gap-3 items-center py-3 px-4 font-medium w-full`}
+                    className={`bg-gray-700 flex gap-3 items-center py-3 px-4 font-medium w-full`}
                   >
                     <span>{icon}</span>
                     <span>{label}</span>
@@ -204,7 +204,7 @@ const Sidebar = () => {
           <h5 className="text-gray-300">Developed with ❤️ by :</h5>
           <div className="flex flex-col gap-0">
             <a
-              href="https://www.linkedin.com/in/jigar-sable"
+              href="https://www.linkedin.com/in/priyanshu-sahu-fullstack-developer"
               target="_blank"
               rel="noreferrer"
               className="text-gray-200 font-medium capitalize text-lg hover:text-blue-500"
