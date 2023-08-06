@@ -6,9 +6,9 @@ import { BsChevronDown } from "react-icons/bs";
 
 const data = [
   { id: 1, name: "Home", url: "/" },
-  { id: 2, name: "About", url: "/" },
+  { id: 2, name: "About", url: "/about" },
   { id: 3, name: "Categories", subMenu: true },
-  { id: 4, name: "Contact", url: "/" },
+  { id: 4, name: "Contact", url: "/contact" },
 ];
 
 const subMenuData = [
@@ -25,7 +25,7 @@ const Menu = ({ showCatMenu, setShowCatMenu }) => {
         <div key={`menu_${item.id}`} className="">
           {!!item?.subMenu ? (
             <div
-              className="cursor-pointer flex gap-2 font-medium text-black"
+              className="cursor-pointer flex items-center gap-2 font-medium text-black"
               onMouseEnter={() => setShowCatMenu(true)}
               onMouseLeave={() => setShowCatMenu(false)}
             >
