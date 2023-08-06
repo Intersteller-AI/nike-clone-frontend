@@ -1,4 +1,3 @@
-// @ts-nocheck
 "use client";
 
 import { useCallback } from "react";
@@ -12,7 +11,6 @@ import Heading from "../inputs/Heading";
 import Button from "../inputs/Button";
 import { useDispatch } from "react-redux";
 import { useMutation } from "@tanstack/react-query";
-import Cookies from "js-cookie";
 
 import { userActions } from "../../store/reducers/user";
 import useLoginModel from "../../hooks/useLoginModal";
@@ -111,6 +109,7 @@ const LoginModal = () => {
   return (
     <Modal
       disabled={isLoading}
+      loadingMessage={"Logging In"}
       isOpen={loginModal.isOpen}
       title="Login"
       actionLabel="Continue"
