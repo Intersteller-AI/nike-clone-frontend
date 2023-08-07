@@ -72,6 +72,7 @@ const Page = () => {
   const { mutate, isLoading: isPaymentLoading } = useMutation({
     mutationFn: (val) => handlePayment(val),
     onSuccess: (data) => {
+      console.log(data);
       Cookies.set("orderId", data?.id, { expires: 1 });
       router.push(data?.url);
     },
