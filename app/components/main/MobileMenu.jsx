@@ -11,10 +11,10 @@ import { BsChevronDown } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 
 const subMenuData = [
-  { id: 1, name: "Jordan", doc_count: 11 },
-  { id: 2, name: "Sneakers", doc_count: 8 },
-  { id: 3, name: "Running shoes", doc_count: 64 },
-  { id: 4, name: "Football shoes", doc_count: 107 },
+  { id: 1, name: "Jordan", doc_count: 11, link: "jordan" },
+  { id: 2, name: "Sneakers", doc_count: 8, link:"sneakers" },
+  { id: 3, name: "Running shoes", doc_count: 64, link: "running" },
+  { id: 4, name: "Football shoes", doc_count: 107, link:"football" },
 ];
 
 const MobileMenu = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
@@ -74,7 +74,7 @@ const MobileMenu = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
             {subMenuData?.map((categoriesData, index) => (
               <Link
                 key={`subMenu_${index}`}
-                href={`/category/${categoriesData?.name}`}
+                href={`/category/${categoriesData?.link}`}
                 onClick={() => {
                   setShowCatMenu(false);
                   setMobileMenu(false);
@@ -82,7 +82,6 @@ const MobileMenu = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
               >
                 <div className="py-4 px-8 border-t flex justify-between">
                   {categoriesData?.name}
-                  <span className="opacity-50 text-sm">{`(${categoriesData.doc_count})`}</span>
                 </div>
               </Link>
             ))}
