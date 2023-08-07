@@ -47,7 +47,7 @@ const Page = () => {
 
   const {
     data: cartData,
-    isFetching,
+    isLoading,
     refetch,
   } = useQuery({
     queryFn: getCart,
@@ -149,7 +149,7 @@ const Page = () => {
           </div>
           {/* cart ended */}
         </>
-      ) : !isLoading ? (
+      ) : isLoading ? (
         <div className="w-full h-screen md:h-[60vh] flex flex-col items-center justify-center gap-2">
           <Image
             style={{
