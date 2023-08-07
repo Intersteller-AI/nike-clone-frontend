@@ -17,7 +17,6 @@ const Price = ({isLoading, register, errors}) => {
         disabled={isLoading}
         register={register}
         errors={errors}
-        required
       />
       <Heading
         title="Set the discounted price of your product"
