@@ -43,15 +43,20 @@ const handlePayment = async (subTotal) => {
 const Page = () => {
   const router = useRouter();
   const counterState = useSelector((state) => state.counter);
- 
+  const [cart, setCart] = useState([]);
+
   const {
-    data: cart,
+    data: cartData,
     isLoading,
     refetch,
   } = useQuery({
     queryFn: getCart,
     queryKey: ["cart"],
   });
+
+  useEffect(() => {
+    setCart(cart);
+  }, [cartData, cart]);
 
   useEffect(() => {
     refetch();
