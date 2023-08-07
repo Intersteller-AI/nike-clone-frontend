@@ -31,6 +31,7 @@ const Success = () => {
   const { mutate, isLoading, data } = useMutation({
     mutationFn: (orderId) => retrieveStatus(orderId),
     onSuccess: (data) => {
+      console.log(data)
       dispatch(counterActions.cartLen(data?.user.cart.length));
     },
     onError: (error) => {
@@ -41,6 +42,9 @@ const Success = () => {
   useEffect(() => {
     mutate(getCookie);
   }, [mutate, getCookie]);
+
+  console.log(getCookie)
+  
 
   return (
     <div className="min-h-[650px] flex items-center py-8">
