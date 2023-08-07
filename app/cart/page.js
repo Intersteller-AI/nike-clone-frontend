@@ -13,9 +13,15 @@ import { useRouter } from "next/navigation";
 
 const getCart = async () => {
   try {
-    const { data } = await axios.get(`${API_URL}/api/products/cart`, {
-      withCredentials: true,
+    // const { data } = await axios.get(`${API_URL}/api/products/cart`, {
+    //   withCredentials: true,
+    // });
+    const res = await fetch(`${API_URL}/api/products/cart`, {
+      method: "GET",
+      credentials: "include",
     });
+
+    const data = await res.json();
 
     return data;
   } catch (error) {
@@ -50,13 +56,13 @@ const Page = () => {
     isLoading,
     refetch,
   } = useQuery({
-    queryFn: getCart,
+    queryFn: () => getCart(),
     queryKey: ["cart"],
   });
 
   useEffect(() => {
     setCart(cartData);
-  }, [cartData, cart]);
+  }, [cartData]);
 
   useEffect(() => {
     refetch();
