@@ -86,18 +86,23 @@ export default function ProductClient({ productDetails, products }) {
     setWishlisted(user?.wishlist?.includes(productDetails?._id));
   }, [productDetails, user]);
 
-  const wishlistHandler = () => {
+    const wishlistHandler = () => {
     if (userState?.userInfo) {
       refetch();
       setWishlisted(!wishlisted);
       wishlisted
-        ? toast.success("Remove from your wishlist 😃")
-        : toast.success("Added to you wishlist 🎉");
+        ? toast.success("Remove from your wishlist 😃", {
+            position: "bottom-center",
+          })
+        : toast.success("Added to you wishlist 🎉", {
+            position: "bottom-center",
+          });
     } else {
       loginModal.onOpen();
       toast.error("Please login to continue!");
     }
   };
+
 
   const { mutate } = useMutation({
     mutationFn: (formData) => handleCart({ formData }),
