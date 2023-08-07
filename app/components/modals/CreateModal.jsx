@@ -40,7 +40,6 @@ const CreateModel = () => {
   const [demoPictures, setDemoPictures] = useState([]);
   const [file, setFile] = useState(null);
   const [files, setFiles] = useState([]);
-  const router = useRouter()
 
   const {
     register,
@@ -165,6 +164,10 @@ const CreateModel = () => {
       dispatch(userActions.setUserInfo(data?.user))
       toast.success(data?.message);
       createModal.onClose();
+      setFile(null)
+      setFiles([])
+      setThumbnailPic("")
+      setDemoPictures([])
       reset({
         name: "",
         subtitle: "",
@@ -178,7 +181,6 @@ const CreateModel = () => {
       });
       setStep(STEPS.NAME_SUBTITLE);
       setSelectedCategories([]);
-      router.refresh()
     },
     onError: (error) => {
       console.log(error);
