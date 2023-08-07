@@ -44,9 +44,15 @@ export const loginUser = async ({ email, password }) => {
 
 export const logoutUser = async () => {
   try {
-    const { data } = await axios.post(`${API_URL}/api/users/logout`, {
-      withCredentials: true,
+    // const { data } = await axios.post(`${API_URL}/api/users/logout`, {
+    //   withCredentials: true,
+    // });
+    const res = await fetch(`${API_URL}/api/users/logout`, {
+      method: "POST",
+      credentials: "include",
     });
+
+    const data = await res.json();
 
     return data;
   } catch (error) {
@@ -56,6 +62,7 @@ export const logoutUser = async () => {
     throw new Error(error.message);
   }
 };
+
 
 export const getAdminData = async () => {
   try {
