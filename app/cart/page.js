@@ -55,7 +55,7 @@ const Page = () => {
   });
 
   useEffect(() => {
-    setCart(cart);
+    setCart(cartData);
   }, [cartData, cart]);
 
   useEffect(() => {
