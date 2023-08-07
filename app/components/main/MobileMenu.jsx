@@ -1,8 +1,8 @@
-"use client"
+"use client";
 import useLoginModel from "@/app/hooks/useLoginModal";
 import { logoutUser } from "@/app/services/user";
 import { logout } from "@/app/store/actions/user";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import React, { useEffect } from "react";
@@ -21,28 +21,25 @@ const MobileMenu = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
   const currentPath = usePathname();
   const userState = useSelector((state) => state.user);
   const router = useRouter();
-  const dispatch = useDispatch()
-  const loginModel = useLoginModel()
+  const dispatch = useDispatch();
+  const loginModel = useLoginModel();
 
-  const { refetch } = useQuery({
-    refetchOnWindowFocus: false,
-    enabled: false,
-    queryFn: () => logoutUser(),
+  const { mutate } = useMutation({
+    mutationFn: () => logoutUser(),
     onSuccess: (data) => {
-      toast.success(data?.message);
-      setMobileMenu(false)
+      toast.success("Logout Successfully!");
+      setMobileMenu(false);
     },
     onError: (error) => {
       console.log(error);
       toast.error(error?.message);
     },
-    queryKey: ["profile"],
   });
 
   const logoutHandler = () => {
     dispatch(logout);
     router.push("/");
-    refetch();
+    mutate();
   };
 
   return (
@@ -56,9 +53,7 @@ const MobileMenu = ({ showCatMenu, setShowCatMenu, setMobileMenu }) => {
             {currentPath === "/" ? "Profile" : "Home"}
           </Link>
         ) : (
-          <div onClick={loginModel.onOpen}>
-            Login
-          </div>
+          <div onClick={loginModel.onOpen}>Login</div>
         )}
       </div>
       <div
