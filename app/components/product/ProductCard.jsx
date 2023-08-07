@@ -43,8 +43,12 @@ const ProductCard = ({ data, userWishlist = null }) => {
       refetch();
       setLiked(!liked);
       liked
-        ? toast.success("Remove from your wishlist 😃")
-        : toast.success("Added to you wishlist 🎉");
+        ? toast.success("Remove from your wishlist 😃", {
+            position: "bottom-center",
+          })
+        : toast.success("Added to you wishlist 🎉", {
+            position: "bottom-center",
+          });
     } else {
       loginModal.onOpen();
       toast.error("Please login to continue!");
