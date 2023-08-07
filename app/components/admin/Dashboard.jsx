@@ -272,7 +272,7 @@ const Dashboard = () => {
                             </div>
                           </td>
                         </tr>
-                      ))
+                      )).reverse()
                     )}
                   </tbody>
                 </table>
