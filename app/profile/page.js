@@ -1,5 +1,5 @@
 "use client";
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery } from "@tanstack/react-query";
 import Image from "next/image";
 import { TbEdit } from "react-icons/tb";
 import { logoutUser } from "../services/user";
@@ -18,7 +18,7 @@ const userOrders = async () => {
     const { data } = await axios.get(`${API_URL}/api/users/orders`, {
       withCredentials: true,
     });
-
+    
     return data;
   } catch (error) {
     console.log(error);
@@ -34,30 +34,27 @@ const Page = () => {
   const dispatch = useDispatch();
   const router = useRouter();
 
-  const { refetch } = useQuery({
-    refetchOnWindowFocus: false,
-    enabled: false,
-    queryFn: () => logoutUser(),
+  const { mutate } = useMutation({
+    mutationFn: () => logoutUser(),
     onSuccess: (data) => {
-      toast.success(data?.message);
+      toast.success("Logout Successfully!");
     },
     onError: (error) => {
       console.log(error);
       toast.error(error?.message);
     },
-    queryKey: ["profile"],
   });
 
   const logoutHandler = () => {
     dispatch(logout);
     router.push("/");
-    refetch();
+    mutate();
   };
   const userState = useSelector((state) => state.user);
   const [userInfo, setuserInfo] = useState({});
 
   useEffect(() => {
-    if (!userState.userInfo) {
+    if (!userState?.userInfo) {
       router.push("/");
     }
     setuserInfo(userState?.userInfo);
@@ -225,7 +222,7 @@ const Page = () => {
                                 </td>
                                 <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
                                   <p className="whitespace-no-wrap text-gray-900">
-                                    {order?.orderItems?.length}
+                                    {order?.orderItems.length}
                                   </p>
                                 </td>
                                 <td className="border-b border-gray-200 bg-white px-5 py-5 text-sm">
