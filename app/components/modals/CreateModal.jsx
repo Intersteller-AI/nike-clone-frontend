@@ -40,6 +40,7 @@ const CreateModel = () => {
   const [demoPictures, setDemoPictures] = useState([]);
   const [file, setFile] = useState(null);
   const [files, setFiles] = useState([]);
+  const router = useRouter()
 
   const {
     register,
@@ -177,6 +178,7 @@ const CreateModel = () => {
       });
       setStep(STEPS.NAME_SUBTITLE);
       setSelectedCategories([]);
+      router.refresh()
     },
     onError: (error) => {
       console.log(error);
