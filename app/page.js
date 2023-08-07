@@ -7,7 +7,7 @@ const getAllProducts = async () => {
       method: "GET",
       credentials: "include",
       next: {
-        revalidate: "60",
+        revalidate: 30,
       },
     });
 
