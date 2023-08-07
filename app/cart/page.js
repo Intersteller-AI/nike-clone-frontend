@@ -47,7 +47,7 @@ const Page = () => {
 
   const {
     data: cartData,
-    isLoading,
+    isFetching,
     refetch,
   } = useQuery({
     queryFn: getCart,
