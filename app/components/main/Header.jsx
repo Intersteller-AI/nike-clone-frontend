@@ -116,6 +116,7 @@ const Header = () => {
         )}
 
         <div className={`flex items-center gap-2 text-black`}>
+          {/* desktop menu */}
           <div className="relative md:block hidden">
             {userInfo ? (
               <div className="flex flex-row items-center gap-3 border rounded-full">
@@ -155,6 +156,29 @@ const Header = () => {
           </div>
 
           {/* mobile menu */}
+          {userInfo && (
+            <div className="flex md:hidden flex-row items-center gap-2">
+              {userInfo?.admin && (
+                <NotyIcon
+                  Icon={MdOutlineAdminPanelSettings}
+                  data={0}
+                  linkJump="/admin"
+                />
+              )}
+              <NotyIcon
+                Icon={IoMdHeartEmpty}
+                data={wishCounter}
+                cartEmpty={wishCounter > 0 ? false : true}
+                linkJump="/wishlist"
+              />
+              <NotyIcon
+                Icon={BsCart}
+                data={cartCounter}
+                linkJump="/cart"
+                cartEmpty={cartCounter > 0 ? false : true}
+              />
+            </div>
+          )}
           <div
             onClick={() => setMobileMenu(!mobileMenu)}
             className="w-8 md:w-12 h-8 md:h-12 rounded-full flex md:hidden justify-center items-center cursor-pointer hover:bg-black/[0.05] relative"
